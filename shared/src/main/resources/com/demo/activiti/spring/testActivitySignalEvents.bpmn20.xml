@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Examples">
+  <signal id="shipOrderSignal" name="alert"></signal>
+  <process id="signalProcess" isExecutable="true">
+    <startEvent id="theStart"></startEvent>
+    <intermediateCatchEvent id="shipOrder" name="On Alert">
+      <signalEventDefinition signalRef="shipOrderSignal"></signalEventDefinition>
+    </intermediateCatchEvent>
+    <endEvent id="theEnd"></endEvent>
+    <serviceTask id="servicetask1" name="Before Fork" activiti:async="true" activiti:expression="#{logService.info(execution, &quot;Before Fork&quot;)}"></serviceTask>
+    <serviceTask id="servicetask2" name="After Fork" activiti:async="true" activiti:expression="#{logService.info(execution, &quot;After Fork&quot;)}"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="theStart" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="servicetask2" targetRef="theEnd"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="shipOrder"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="shipOrder" targetRef="servicetask2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_signalProcess">
+    <bpmndi:BPMNPlane bpmnElement="signalProcess" id="BPMNPlane_signalProcess">
+      <bpmndi:BPMNShape bpmnElement="theStart" id="BPMNShape_theStart">
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="84.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shipOrder" id="BPMNShape_shipOrder">
+        <omgdc:Bounds height="35.0" width="35.0" x="260.0" y="84.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="theEnd" id="BPMNShape_theEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="84.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="90.0" y="74.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="360.0" y="74.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="45.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="90.0" y="101.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="465.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="101.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="195.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="101.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="295.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="101.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
